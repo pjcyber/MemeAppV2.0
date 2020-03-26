@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="V0X-LX-Me3">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Meme Details View Controller-->
+        <scene sceneID="T42-Jc-06p">
+            <objects>
+                <viewController id="V0X-LX-Me3" customClass="MemeDetailsViewController" customModule="MemeMe_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wwJ-e3-aW4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lyg-4N-wuI">
+                                <rect key="frame" x="0.0" y="191.5" width="414" height="523"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="523" id="wMH-zk-PfC"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="lyg-4N-wuI" firstAttribute="centerY" secondItem="UI8-dD-hCq" secondAttribute="centerY" id="C44-Za-Kjo"/>
+                            <constraint firstItem="lyg-4N-wuI" firstAttribute="width" secondItem="wwJ-e3-aW4" secondAttribute="width" id="Pwn-jB-K8j"/>
+                            <constraint firstItem="lyg-4N-wuI" firstAttribute="centerX" secondItem="UI8-dD-hCq" secondAttribute="centerX" id="tWU-P7-pR2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UI8-dD-hCq"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Nud-Xc-h5e">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="TxY-bV-QGn">
+                            <connections>
+                                <action selector="editMeme:" destination="V0X-LX-Me3" id="5lR-rH-yUM"/>
+                                <segue destination="uPv-Bc-TkY" kind="show" identifier="MemeEditorSegue" id="0sJ-HW-2mV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="lyg-4N-wuI" id="41h-Ya-AiM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LfK-kR-NDW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1368.1159420289855" y="875.89285714285711"/>
+        </scene>
+        <!--MemeEditor-->
+        <scene sceneID="v0o-mo-CtL">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MemeEditor" id="uPv-Bc-TkY" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="omI-50-Ed1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rL6-W1-PQN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-725" y="876"/>
+        </scene>
+    </scenes>
+</document>
