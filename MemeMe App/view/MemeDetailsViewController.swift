@@ -23,12 +23,12 @@ class MemeDetailsViewController: UIViewController {
         }
     }
     
-    // MARK: - func to set the action for edit button
+    // to set the action for edit button
     @IBAction func editMeme(_ sender: Any) {
         performSegue(withIdentifier: "MemeEditorSegue", sender: self)
     }
     
-    // MARK: - func to add image of the selected Meme
+    // func to add image of the selected Meme
     func restoreSelectedMeme() {
         if selectedItem != -1 {
             let object = UIApplication.shared.delegate
@@ -46,7 +46,7 @@ class MemeDetailsViewController: UIViewController {
         }
     }
     
-    // MARK: - configuring segue and sending the selected Item index
+    // configuring segue and sending the selected Item index
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if selectedItem != -1 {
             let navigationController = segue.destination as! UINavigationController

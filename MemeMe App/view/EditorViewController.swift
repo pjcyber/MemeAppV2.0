@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController {
     
     // MARK: - Properties
     @IBOutlet weak var topNavBar: UIToolbar!
@@ -43,7 +43,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         unsubscribeFromKeyboardNotifications()
     }
     
-    // MARK: - to detect change in device orientation
+    // to detect change in device orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         // adjust the contentMode to .scaleAspectFill/.scaleAspectFit depending of picture orientation and device orientation
@@ -51,17 +51,17 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         adjustPictureScaleAspect(pictureLandscape: pictureLandscape)
     }
     
-    // MARK: - To Open UIImagePickerController to get image from the device gallery
+    // To Open UIImagePickerController to get image from the device gallery
     @IBAction func onClickPickAnImageFromAlbum(_ sender: Any) {
         pickImage(from: .photoLibrary)
     }
     
-    // MARK: - To open Camera
+    // To open Camera
     @IBAction func onClickPickAnImageFromCamera(_ sender: Any) {
         pickImage(from: .camera)
     }
     
-    // MARK: - To open UIActivityViewController to share Meme Image
+    // To open UIActivityViewController to share Meme Image
     @IBAction func onClickShareButton() {
         let meme = createMeme()
         let items = [meme.memedImage]
@@ -73,7 +73,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
             _, completed, _, error in
             if completed {
                 //  share completed
-                self.saveMeme(meme: meme)
+                self.save(meme: meme)
                 self.navigationController?.dismiss(animated: true)
                 return
             } else {
@@ -85,12 +85,12 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
-    // MARK: - Click cancel to reset the app to the initial state
+    // Click cancel to reset the app to the initial state
     @IBAction func onClikCancel() {
         self.navigationController?.dismiss(animated: true)
     }
     
-    // MARK: - open UIImagePickerController
+    // open UIImagePickerController
     func pickImage(from: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -98,28 +98,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let image = info[.originalImage] as? UIImage {
-            // adding image to imageView
-            imageView.image = image
-            // enabling topTextField and bottomTextField
-            enableTextFields(true)
-            // adjust the contentMode to .scaleAspectFill/.scaleAspectFit depending of picture orientation and device orientation
-            pictureLandscape = image.size.width > image.size.height
-            adjustPictureScaleAspect(pictureLandscape: pictureLandscape)
-        }
-        
-        // to return to this UIViewController
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // to return to this UIViewController
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - func to adjust contentMode in imageView
+    // to adjust contentMode in imageView
     func adjustPictureScaleAspect(pictureLandscape: Bool) {
         if screenOrientationPortrait {
             if pictureLandscape {
@@ -132,7 +111,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
-    // MARK: - subscription to keyboard notification to detect if the keyboard is shown
+    // subscription to keyboard notification to detect if the keyboard is shown
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(_:)),
@@ -140,12 +119,12 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
                                                object: nil)
     }
     
-    // MARK: - removing subscription to keyboard notification
+    // removing subscription to keyboard notification
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    // MARK: - func to move the view according to the keyboard visibility
+    // to move the view according to the keyboard visibility
     @objc func keyboardWillShow(_ notification: Notification) {
         if bottomTextField.isEditing {
             view.frame.origin.y -= getKeyboardHeight(notification)
@@ -155,14 +134,14 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
-    // MARK: - func to get keyboard height
+    // to get keyboard height
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
     
-    // MARK: - func to hide keboard and reset view to the original position when the user tap enter
+    // to hide keboard and reset view to the original position when the user tap enter
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         view.frame.origin.y = position
@@ -171,12 +150,12 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         return false
     }
     
-    // MARK: - func to clean initial text when the user tap TextField
+    // to clean initial text when the user tap TextField
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = ""
     }
     
-    // MARK: - func to create Meme struct
+    // to create Meme struct
     func createMeme() -> Meme {
         // Create the meme
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
@@ -184,8 +163,8 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         return meme
     }
     
-    // MARK: - func to save Meme in AppDelegate
-    func saveMeme(meme: Meme) {
+    // to save Meme in AppDelegate
+    func save(meme: Meme) {
         let object = UIApplication.shared.delegate
         let appDelegate = object as! AppDelegate
         if editItemPosition == -1 {
@@ -195,7 +174,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
-    // MARK: - func to generate Meme Image
+    // to generate Meme Image
     func generateMemedImage() -> UIImage {
         // Hide toolbar and navbar
         hideToolBar(true)
@@ -212,7 +191,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         return memedImage
     }
     
-    // MARK: - func to set the initial UI
+    // to set the initial UI
     func initializeUI() {
         let size = UIScreen.main.bounds.size
         screenOrientationPortrait = size.width < size.height
@@ -225,7 +204,7 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         restoreSelectedMeme()
     }
     
-    // MARK: - func to restore Meme data
+    // to restore Meme data
     func restoreSelectedMeme() {
         if editItemPosition != -1 {
             let object = UIApplication.shared.delegate
@@ -245,14 +224,8 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
-    // MARK: - func to enable TextField
-    func enableTextFields(_ enable: Bool) {
-        topTextField.isEnabled = enable
-        bottomTextField.isEnabled = enable
-        shareButton.isEnabled = enable
-    }
-    
-    // MARK: - func to show/hide toolbar
+   
+    // to show/hide toolbar
     func hideToolBar(_ show: Bool) {
         topNavBar.isHidden = show
         bottomToolBar.isHidden = show
@@ -266,16 +239,50 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
             NSAttributedString.Key.strokeColor: UIColor.black,
             NSAttributedString.Key.foregroundColor: UIColor.white,
             NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSAttributedString.Key.strokeWidth: -3.0
+            NSAttributedString.Key.strokeWidth: -6.0
         ]
         
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
     }
     
-    // MARK: - func to enable camara/album button
+    // to enable camara/album button
     func enablePickImageButtons(_ enable: Bool) {
         cameraButton.isEnabled = enable
         albumButton.isEnabled = enable
     }
+}
+
+extension MemeEditorViewController: UITextFieldDelegate {
+    
+    // to enable TextField
+       func enableTextFields(_ enable: Bool) {
+           topTextField.isEnabled = enable
+           bottomTextField.isEnabled = enable
+           shareButton.isEnabled = enable
+       }
+}
+
+extension MemeEditorViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                                  didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+           if let image = info[.originalImage] as? UIImage {
+               // adding image to imageView
+               imageView.image = image
+               // enabling topTextField and bottomTextField
+               enableTextFields(true)
+               // adjust the contentMode to .scaleAspectFill/.scaleAspectFit depending of picture orientation and device orientation
+               pictureLandscape = image.size.width > image.size.height
+               adjustPictureScaleAspect(pictureLandscape: pictureLandscape)
+           }
+           
+           // to return to this UIViewController
+           picker.dismiss(animated: true, completion: nil)
+       }
+       
+       func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+           // to return to this UIViewController
+           picker.dismiss(animated: true, completion: nil)
+       }
 }

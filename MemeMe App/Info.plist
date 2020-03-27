@@ -22,10 +22,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Meme App needs permission to access components</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Meme App needs permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Meme App nees permission to acces the image gallery</string>
-	<key>PrivPrivacy - Photo Library Usage Description</key>
-	<string></string>
+	<string>Meme App needs permission to acces the image gallery</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

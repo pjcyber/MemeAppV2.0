@@ -25,7 +25,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         collectionView.reloadData()
     }
     
-    // MARK: - configuring UICollectionView
+    // configuring UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return memes.count
     }
@@ -42,7 +42,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         return CGSize(width: 200, height: 200)
     }
     
-    // MARK: - func to call the segue after tap the cell
+    // func to call the segue after tap the cell
     @objc func tapCell(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: self.collectionView)
         let indexPath = self.collectionView.indexPathForItem(at: location)
@@ -52,7 +52,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    // MARK: - configuring segue and sending the selected Item index
+    // configuring segue and sending the selected Item index
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if selectedItem != -1 {
             let memeDetailsViewController = segue.destination  as! MemeDetailsViewController

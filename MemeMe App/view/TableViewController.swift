@@ -42,12 +42,12 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         performSegue(withIdentifier: "memeDetails", sender: self)
     }
     
-    // MARK: - to reset selectedItem when the user taps plus button
+    // to reset selectedItem when the user taps plus button
     @IBAction func addMeme(_ sender: Any) {
         selectedItem = -1
     }
     
-    // MARK: - configuring segue and sending the selected Item index
+    // configuring segue and sending the selected Item index
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if selectedItem != -1 {
             let memeDetailsViewController = segue.destination  as! MemeDetailsViewController
